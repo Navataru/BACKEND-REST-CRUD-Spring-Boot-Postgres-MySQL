@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vladilen")
+@RequestMapping("/api")
 public class VladilenController {
 
     private final VladilenRepo vladilenRepo;
@@ -24,24 +24,24 @@ public class VladilenController {
         this.vladilenService = vladilenService;
     }
 
-    @GetMapping
+    @GetMapping("/tasks")
     @JsonView(Views.IdName.class)
     public List<Vladilen> list() {
         return vladilenRepo.findAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/task/{id}")
     @JsonView(Views.FullVladilen.class)
     public Vladilen getOne(@PathVariable("id") Vladilen vladilen) {
         return vladilen;
     }
 
-    @PostMapping
+    @PostMapping("/task")
     public Vladilen create(@RequestBody Vladilen vladilen) {
         return vladilenRepo.save(vladilen);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/task/{id}")
     public Vladilen update(
             @PathVariable("id") Vladilen vladilenFromDb,
             @RequestBody Vladilen vladilen
@@ -51,7 +51,7 @@ public class VladilenController {
         return vladilenRepo.save(vladilenFromDb);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/task/{id}")
     public Vladilen patchupdate(
             @PathVariable("id") Vladilen vladilenFromDb,
             @RequestBody Vladilen vladilen
@@ -62,7 +62,7 @@ public class VladilenController {
         return vladilenService.patchupdate(vladilenFromDb,vladilen);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/task/{id}")
     public void delete(@PathVariable("id") Vladilen vladilen) {
         vladilenRepo.delete(vladilen);
     }
